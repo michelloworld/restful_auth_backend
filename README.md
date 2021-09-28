@@ -1,4 +1,6 @@
-# RESTFul Authentication Backend
+# RESTful Authentication Backend
+
+Simple RESTful API Authentication written by golang
 
 ### How to run with docker compose
 
@@ -44,3 +46,7 @@ docker exec -it restful-auth-backend-app-dev go run migrations/seed/seed.go
 ```
 http://localhost:4000
 ```
+
+### Where is the frontend?
+
+[https://github.com/michelloworld/restful_auth_frontend](https://github.com/michelloworld/restful_auth_frontend)
