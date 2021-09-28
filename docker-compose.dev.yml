@@ -1,0 +1,37 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./dockers/app/Dockerfile.dev
+    image: restful_auth_backend_app_dev
+    container_name: restful-auth-backend-app-dev
+    volumes:
+      - .:/go/src/myapp
+    ports:
+      - 4000:4000
+    networks:
+      - restful_auth_backend_network
+  db:
+    image: "postgres:13.4-alpine"
+    container_name: restful-auth-db-dev
+    environment:
+      POSTGRES_USER: ${DOCKER_DB_USER}
+      POSTGRES_PASSWORD: ${DOCKER_DB_PASSWORD}
+      POSTGRES_DB: ${DOCKER_DB_NAME}
+      TZ: "Asia/Bangkok"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5435:5432
+    networks:
+      - restful_auth_backend_network
+
+networks:
+  restful_auth_backend_network:
+    external:
+      name: restful_auth_network_external
+
+volumes:
+  db-data:
+    driver: local

@@ -1,0 +1,16 @@
+FROM golang:1.17.0-alpine3.14
+
+RUN apk update && apk upgrade && \
+    apk add --no-cache vim gcc
+
+RUN mkdir -p /go/src/myapp
+WORKDIR /go/src/myapp
+
+RUN go install github.com/codegangsta/gin@latest
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+CMD ["gin", "-a", "4001", "-p", "4000"]
